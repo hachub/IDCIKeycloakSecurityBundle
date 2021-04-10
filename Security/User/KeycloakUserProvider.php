@@ -7,19 +7,14 @@ use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
 use KnpU\OAuth2ClientBundle\Security\User\OAuthUserProvider;
 use League\OAuth2\Client\Token\AccessToken;
+use League\OAuth2\Client\Token\AccessTokenInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class KeycloakUserProvider extends OAuthUserProvider
 {
-    /**
-     * @var ClientRegistry
-     */
-    protected $clientRegistry;
-
-    public function __construct(ClientRegistry $clientRegistry)
+    public function __construct(protected ClientRegistry $clientRegistry)
     {
-        $this->clientRegistry = $clientRegistry;
     }
 
     /**

@@ -17,20 +17,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class KeycloakAuthenticator extends SocialAuthenticator
 {
-    /**
-     * @var ClientRegistry
-     */
-    protected $clientRegistry;
-
-    /**
-     * @var UrlGeneratorInterface
-     */
-    protected $urlGenerator;
-
-    public function __construct(ClientRegistry $clientRegistry, UrlGeneratorInterface $urlGenerator)
+    public function __construct(protected ClientRegistry $clientRegistry, protected UrlGeneratorInterface $urlGenerator)
     {
-        $this->clientRegistry = $clientRegistry;
-        $this->urlGenerator = $urlGenerator;
     }
 
     public function supports(Request $request)

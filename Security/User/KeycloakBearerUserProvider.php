@@ -14,19 +14,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class KeycloakBearerUserProvider extends OAuthUserProvider
 {
     /**
-     * @var ClientRegistry
+     * KeycloakBearerUserProvider constructor.
+     * @param ClientRegistry $clientRegistry
+     * @param mixed $sslVerification
      */
-    protected $clientRegistry;
-
-    /**
-     * @var mixed
-     */
-    protected $sslVerification;
-
-    public function __construct(ClientRegistry $clientRegistry, $sslVerification)
+    public function __construct(protected ClientRegistry $clientRegistry, protected $sslVerification)
     {
-        $this->clientRegistry = $clientRegistry;
-        $this->sslVerification = $sslVerification;
     }
 
     /**

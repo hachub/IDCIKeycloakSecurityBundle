@@ -8,66 +8,18 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class KeycloakUser extends OAuthUser
 {
-    /**
-     * @var AccessToken
-     */
-    private $accessToken;
-
-    /**
-     * @var string
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $email;
-
-    /**
-     * @var string
-     */
-    private $displayName;
-
-    /**
-     * @var string
-     */
-    private $firstName;
-    /**
-     * @var string
-     */
-    private $lastName;
-
-    /**
-     * @var string
-     */
-    private $accountUrl;
-
-    /**
-     * @var string
-     */
-    private $preferredLanguage;
-
     public function __construct(
         string $username,
         array $roles,
-        AccessToken $accessToken,
-        string $id,
-        ?string $email = null,
-        ?string $displayName = null,
-        ?string $firstName = null,
-        ?string $lastName = null,
-        string $accountUrl,
-        ?string $preferredLanguage = 'en'
+        private AccessToken $accessToken,
+        private string $id,
+        private ?string $email = null,
+        private ?string $displayName = null,
+        private ?string $firstName = null,
+        private ?string $lastName = null,
+        private string $accountUrl,
+        private ?string $preferredLanguage = 'en'
     ) {
-        $this->accessToken = $accessToken;
-        $this->id = $id;
-        $this->email = $email;
-        $this->displayName = $displayName;
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
-        $this->accountUrl = $accountUrl;
-        $this->preferredLanguage = $preferredLanguage;
-
         parent::__construct($username, $roles);
     }
 

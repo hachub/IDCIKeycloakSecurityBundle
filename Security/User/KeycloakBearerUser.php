@@ -7,15 +7,9 @@ use League\OAuth2\Client\Token\AccessToken;
 
 class KeycloakBearerUser extends OAuthUser
 {
-    /**
-     * @var AccessToken
-     */
-    private $accessToken;
-
-    public function __construct(string $username, array $roles, string $accessToken)
+    public function __construct(string $username, array $roles
+        , private string $accessToken)
     {
-        $this->accessToken = $accessToken;
-
         parent::__construct($username, $roles);
     }
 

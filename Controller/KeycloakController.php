@@ -14,7 +14,7 @@ class KeycloakController extends AbstractController
 {
     public function connectAction(ClientRegistry $clientRegistry)
     {
-        return $clientRegistry->getClient('keycloak')->redirect();
+        return $clientRegistry->getClient('keycloak')->redirect([], []);
     }
 
     public function connectCheckAction(Request $request, string $defaultTargetPath)
@@ -29,7 +29,7 @@ class KeycloakController extends AbstractController
         string $defaultTargetPath
     ) {
         $token = $tokenStorage->getToken();
-        $user = $token->getUser();
+        $user = $token ? $token->getUser() : null;
 
         if (!$user instanceof KeycloakUser) {
             throw new \RuntimeException('The user must be an instance of KeycloakUser');
@@ -38,7 +38,12 @@ class KeycloakController extends AbstractController
         $tokenStorage->setToken(null);
         $request->getSession()->invalidate();
 
-        $values = $user->getAccessToken()->getValues();
+        $accessToken = $user->getAccessToken();
+        if (null === $accessToken) {
+            throw new \RuntimeException('The access token has no values');
+        }
+
+        $values = $accessToken->getValues();
         $oAuth2Provider = $clientRegistry->getClient('keycloak')->getOAuth2Provider();
 
         return new RedirectResponse($oAuth2Provider->getLogoutUrl([

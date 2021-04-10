@@ -7,20 +7,8 @@ use League\OAuth2\Client\Token\AccessToken;
 
 class KeycloakResourceOwner implements ResourceOwnerInterface
 {
-    /**
-     * @var array
-     */
-    protected $response;
-
-    /**
-     * @var AccessToken
-     */
-    protected $token;
-
-    public function __construct(array $response = [], AccessToken $token)
+    public function __construct(protected AccessToken $token, protected array $response = [])
     {
-        $this->response = $response;
-        $this->token = $token;
     }
 
     public function getId(): ?string
